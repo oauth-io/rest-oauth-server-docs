@@ -10,8 +10,7 @@
         "https"
     ],
     "produces": [
-        "application/json",
-        "text/html"
+        "application/json"
     ],
     "paths": {
         "/oauth2/authorize": {
