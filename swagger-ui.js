@@ -649,13 +649,13 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   },"14":function(depth0,helpers,partials,data) {
   return "        <div class='access'>\n          <span class=\"api-ic ic-off\" title=\"click to authenticate\"></span>\n        </div>\n";
   },"16":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "          <h4>Response Class (Status "
-    + escapeExpression(((helper = (helper = helpers.successCode || (depth0 != null ? depth0.successCode : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"successCode","hash":{},"data":data}) : helper)))
-    + ")</h4>\n          <p><span class=\"model-signature\" /></p>\n          <br/>\n          <div class=\"response-content-type\" />\n";
-},"18":function(depth0,helpers,partials,data) {
   return "          <h4>Parameters</h4>\n          <table class='fullwidth'>\n          <thead>\n            <tr>\n            <th style=\"width: 100px; max-width: 100px\">Parameter</th>\n            <th style=\"width: 310px; max-width: 310px\">Value</th>\n            <th style=\"width: 200px; max-width: 200px\">Description</th>\n            <th style=\"width: 100px; max-width: 100px\">Parameter Type</th>\n            <th style=\"width: 220px; max-width: 230px\">Data Type</th>\n            </tr>\n          </thead>\n          <tbody class=\"operation-params\">\n\n          </tbody>\n          </table>\n";
-  },"20":function(depth0,helpers,partials,data) {
+  },"18":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "            <h4>Response Class (Status "
+    + escapeExpression(((helper = (helper = helpers.successCode || (depth0 != null ? depth0.successCode : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"successCode","hash":{},"data":data}) : helper)))
+    + ")</h4>\n            <p><span class=\"model-signature\" /></p>\n            <br/>\n            <div class=\"response-content-type\" />\n";
+},"20":function(depth0,helpers,partials,data) {
   return "          <div style='margin:0;padding:0;display:inline'></div>\n          <h4>Response Messages</h4>\n          <table class='fullwidth'>\n            <thead>\n            <tr>\n              <th>HTTP Status Code</th>\n              <th>Reason</th>\n              <th>Response Model</th>\n              <th>Headers</th>\n            </tr>\n            </thead>\n            <tbody class=\"operation-status\">\n\n            </tbody>\n          </table>\n";
   },"22":function(depth0,helpers,partials,data) {
   return "";
@@ -713,11 +713,12 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   stack1 = ((helper = (helper = helpers.oauth || (depth0 != null ? depth0.oauth : depth0)) != null ? helper : helperMissing),(options={"name":"oauth","hash":{},"fn":this.program(14, data),"inverse":this.noop,"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.oauth) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"if","hash":{},"fn":this.program(16, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { buffer += stack1; }
   buffer += "        <form accept-charset='UTF-8' class='sandbox'>\n          <div style='margin:0;padding:0;display:inline'></div>\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.parameters : depth0), {"name":"if","hash":{},"fn":this.program(18, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.parameters : depth0), {"name":"if","hash":{},"fn":this.program(16, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"if","hash":{},"fn":this.program(18, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.responseMessages : depth0), {"name":"if","hash":{},"fn":this.program(20, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isReadOnly : depth0), {"name":"if","hash":{},"fn":this.program(22, data),"inverse":this.program(24, data),"data":data});
