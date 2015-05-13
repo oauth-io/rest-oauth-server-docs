@@ -593,33 +593,17 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
     + "</a></div>";
 },"14":function(depth0,helpers,partials,data) {
   var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
-  return "      , <span style=\"font-variant: small-caps\">api version</span>: "
+  return "      <span style=\"font-variant: small-caps\">api version</span>: "
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.info : depth0)) != null ? stack1.version : stack1), depth0))
     + "\n      ";
-},"16":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "      <span style=\"float:right\">\n        <a href=\""
-    + escapeExpression(((helper = (helper = helpers.validatorUrl || (depth0 != null ? depth0.validatorUrl : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"validatorUrl","hash":{},"data":data}) : helper)))
-    + "/debug?url="
-    + escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"url","hash":{},"data":data}) : helper)))
-    + "\"><img id=\"validator\" src=\""
-    + escapeExpression(((helper = (helper = helpers.validatorUrl || (depth0 != null ? depth0.validatorUrl : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"validatorUrl","hash":{},"data":data}) : helper)))
-    + "?url="
-    + escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"url","hash":{},"data":data}) : helper)))
-    + "\"></a>\n      </span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class='container' id='resources_container'>\n  <div class='info' id='api_info'>\n";
+  var stack1, buffer = "<div class='container' id='resources_container'>\n  <div class='info' id='api_info'>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.info : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "  </div>\n  <div class=\"panel panel-primary\" style=\"width: 100%\">\n    <div class=\"panel-heading\">\n      <h4>\n        <span class=\"security-type\">HTTP Basic Authentication</span>\n      </h4>\n    </div>\n    <div class=\"panel-body\">\n      <p>\n        The HTTP Authorization header must contain <code>\"Basic \" + base64(provider_id + \":\" + provider_secret)</code> where provider_id and provider_secret refer to your platform keys.\n        All endpoints described below need this Authorization header or will respond with <code>401 Unauthorized</code>.\n      </p>\n    </div>\n  </div>\n  <ul id='resources'></ul>\n  <div class=\"footer\">\n    <h4 style=\"color: #999\">[ <span style=\"font-variant: small-caps\">base url</span>: "
-    + escapeExpression(((helper = (helper = helpers.basePath || (depth0 != null ? depth0.basePath : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"basePath","hash":{},"data":data}) : helper)))
-    + "\n";
+  buffer += "  </div>\n  <div class=\"panel panel-primary\" style=\"width: 100%\">\n    <div class=\"panel-heading\">\n      <h4>\n        <span class=\"security-type\">HTTP Basic Authentication</span>\n      </h4>\n    </div>\n    <div class=\"panel-body\">\n      <p>\n        The HTTP Authorization header must contain <code>\"Basic \" + base64(provider_id + \":\" + provider_secret)</code> where provider_id and provider_secret refer to your platform keys.\n        All endpoints described below need this Authorization header or will respond with <code>401 Unauthorized</code>.\n      </p>\n    </div>\n  </div>\n  <ul id='resources'></ul>\n  <div class=\"footer\">\n    <h4 style=\"color: #999\">[\n";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 != null ? depth0.info : depth0)) != null ? stack1.version : stack1), {"name":"if","hash":{},"fn":this.program(14, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "]\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.validatorUrl : depth0), {"name":"if","hash":{},"fn":this.program(16, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </h4>\n  </div>\n</div>";
+  return buffer + "]\n    </h4>\n  </div>\n</div>";
 },"useData":true});
 this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "deprecated";
