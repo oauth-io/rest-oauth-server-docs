@@ -1,0 +1,424 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OAuth.io Server API",
+        "description": "Become an OAuth2 provider",
+        "version": "1.0.0"
+    },
+    "host": "oauth.io",
+    "schemes": [
+        "https"
+    ],
+    "produces": [
+        "application/json",
+        "text/html"
+    ],
+    "paths": {
+        "/oauth2/authorize": {
+            "post": {
+                "summary": "Authorize a user",
+                "description": "This endpoint is called when the user allow or deny permission \nin the decision page\n",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "client_id",
+                        "in": "query",
+                        "description": "Client ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "User ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "scope",
+                        "in": "query",
+                        "description": "List of permission (space delimiter)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "redirect_uri",
+                        "in": "query",
+                        "description": "Redirect URI",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "response_type",
+                        "in": "query",
+                        "description": "Response type",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve a code",
+                        "schema": {
+                            "$ref": "#/definitions/CodeSet"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth2/token": {
+            "post": {
+                "summary": "Access token retrieval (with code) or refresh (with refresh token)",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "client_id",
+                        "in": "formData",
+                        "description": "Client ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "client_secret",
+                        "in": "formData",
+                        "description": "Client Secret",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "grant_type",
+                        "in": "formData",
+                        "description": "authorization_code or client_credential or refresh_token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "scope",
+                        "in": "formData",
+                        "description": "Space separated scope list (e.g. \"email friends_list\"). Used only if grant_type = client_credential",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "code",
+                        "in": "formData",
+                        "description": "Code received from /authorize step. Required if grant_type = authorization_code",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "refresh_token",
+                        "in": "formData",
+                        "description": "Refresh token (long-live token) used to refresh the access token (short-live token). Required if grant_type = refresh_token",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send the access token and the refresh token.",
+                        "schema": {
+                            "$ref": "#/definitions/TokenSet"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth2/check": {
+            "get": {
+                "summary": "Check the validity of an access token and give back his permission, \nclient_id and user_id\n",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "The access token you want to check",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informations linked to the access token",
+                        "schema": {
+                            "properties": {
+                                "scope": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "user_id": {
+                                    "type": "string"
+                                },
+                                "client_id": {
+                                    "type": "string"
+                                },
+                                "ttl": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "The given access token is not valid"
+                    }
+                }
+            }
+        },
+        "/oauth2/clients": {
+            "post": {
+                "summary": "Create a client",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name of the client's app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "Description of the client's app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "redirect_uri",
+                        "in": "formData",
+                        "description": "Whitelisted redirect uri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "User id of the client's app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client created",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a client",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name of the client's app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "Description of the client's app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "redirect_uri",
+                        "in": "formData",
+                        "description": "Whitelisted redirect uri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "User id of the client's app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client created",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth2/clients/:client_id": {
+            "get": {
+                "summary": "Retrieves a client by its client_id",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client informations",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove a client by its client_id",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted"
+                    }
+                }
+            }
+        },
+        "/oauth2/clients/keygen/:client_id": {
+            "get": {
+                "summary": "Regenerate the API key's client",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "API Keys regenerated",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth2/clients/all/:user_id": {
+            "get": {
+                "summary": "Retrieves all clients, and filters by user_id if given",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of clients",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Client"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Client": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "client_secret": {
+                    "type": "string"
+                },
+                "provider_id": {
+                    "type": "string"
+                },
+                "redirect_uri": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "CodeSet": {
+            "properties": {
+                "code": {
+                    "type": "string"
+                }
+            }
+        },
+        "TokenSet": {
+            "properties": {
+                "refresh_token": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "access_token": {
+                    "type": "string"
+                },
+                "expires_in": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "error": {
+                    "type": "integer"
+                },
+                "error_description": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic",
+            "description": "HTTP Basic Authentication. The HTTP Authorization header must contain \"Basic \" + base64(provider_id + \":\" + provider_secret) where provider_id and provider_secret refer to your platform keys."
+        }
+    }
+}
