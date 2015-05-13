@@ -32,6 +32,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "decision",
+                        "in": "query",
+                        "description": "Must be set to '1' if the user allowed the app, or '0' if the user denied the authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "name": "user_id",
                         "in": "query",
                         "description": "User ID",
@@ -249,6 +256,13 @@
                     }
                 ],
                 "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "Client id of the app to update",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "name": "name",
                         "in": "formData",
