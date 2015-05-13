@@ -15,6 +15,7 @@
     "paths": {
         "/oauth2/authorize": {
             "post": {
+                "tags": "Authorization",
                 "summary": "Authorize a user",
                 "description": "This endpoint is called when the user allow or deny permission \nin the decision page\n",
                 "security": [
@@ -77,6 +78,7 @@
         },
         "/oauth2/token": {
             "post": {
+                "tags": "Authorization",
                 "summary": "Access token retrieval (with code) or refresh (with refresh token)",
                 "security": [
                     {
@@ -145,6 +147,7 @@
         },
         "/oauth2/check": {
             "get": {
+                "tags": "Authorization",
                 "summary": "Check the validity of an access token and give back his permission, \nclient_id and user_id\n",
                 "security": [
                     {
@@ -191,6 +194,7 @@
         },
         "/oauth2/clients": {
             "post": {
+                "tags": "Client",
                 "summary": "Create a client",
                 "security": [
                     {
@@ -237,6 +241,7 @@
                 }
             },
             "put": {
+                "tags": "Client",
                 "summary": "Update a client",
                 "security": [
                     {
@@ -285,6 +290,7 @@
         },
         "/oauth2/clients/:client_id": {
             "get": {
+                "tags": "Client",
                 "summary": "Retrieves a client by its client_id",
                 "security": [
                     {
@@ -301,6 +307,7 @@
                 }
             },
             "delete": {
+                "tags": "Client",
                 "summary": "Remove a client by its client_id",
                 "security": [
                     {
@@ -316,6 +323,7 @@
         },
         "/oauth2/clients/keygen/:client_id": {
             "get": {
+                "tags": "Client",
                 "summary": "Regenerate the API key's client",
                 "security": [
                     {
@@ -334,6 +342,7 @@
         },
         "/oauth2/clients/all/:user_id": {
             "get": {
+                "tags": "Client",
                 "summary": "Retrieves all clients, and filters by user_id if given",
                 "security": [
                     {
@@ -419,5 +428,15 @@
             "type": "basic",
             "description": "HTTP Basic Authentication. The HTTP Authorization header must contain \"Basic \" + base64(provider_id + \":\" + provider_secret) where provider_id and provider_secret refer to your platform keys."
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Authorization",
+            "description": ""
+        },
+        {
+            "name": "Client",
+            "description": ""
+        }
+    ]
 }
